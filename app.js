@@ -23,12 +23,22 @@ const manage = require('./routes/manage');
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+// Moment
+app.locals.moment = require('moment');
+
 // Body parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // Set static folder
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Express session
+app.use(session({
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: true
+}));
 
 // Express messages
 app.use(require('connect-flash')());
